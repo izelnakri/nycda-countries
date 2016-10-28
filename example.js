@@ -1,19 +1,18 @@
-var fs = require('fs'),
+var JSONFileReader = require('./json-file-reader'),
     ourArgument = process.argv[2];
 
-fs.readFile('countries.json', function(error, data) {
-  var array = JSON.parse(data.toString()),
-      country;
-
-  array.forEach(function(element) {
-    if (element.name === ourArgument) {
-      country = element;
-    }
-  });
+JSONFileReader.readFile('countries.json', function(error, data) {
+  var country;
 
   if (error) {
     throw error;
   }
+
+  data.forEach(function(element) {
+    if (element.name === ourArgument) {
+      country = element;
+    }
+  });
 
   if (country) {
     console.log(country);
